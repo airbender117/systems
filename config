@@ -1,3 +1,7 @@
+# SkyyySi's Nordic i3 config file
+#
+# Please see https://i3wm.org/docs/userguide.html for a complete reference!
+
 ### Variables for settings (This makes changing them WAY easyer!) ###
 set $mod                             Mod4
 set $smod                            Shift
@@ -25,7 +29,7 @@ set $bar_setting_position            top
 set $bar_setting_mode                hide 
 set $bar_setting_font                pango:Source Sans Pro, Semibold 11
 set $bar_setting_separator           " - "
-set $bar_setting_statusCommand       i3status --config ~/.config/i3/i3status.conf
+#set $bar_setting_statusCommand       polybar --config ~/.config/polybar/config --reload mybar
 
 set $bar_setting_trayoutput          full
 
@@ -54,7 +58,7 @@ bindsym $mod+$smod+Return exec $wm_setting_app_browser
 bindsym $mod+d exec $wm_setting_app_launcher
 
 # Run a window compositor (for effects like transparency or full VSync)
-exec_always --no-startup-id $wm_setting_app_compositor
+exec_always --no-startup-id $wm_setting_app_compositor --config ~/.config/picom/picom.conf
 
 # Notifications
 # Start dunst notification daemon
@@ -69,10 +73,14 @@ bindsym $smod+Print exec --no-startup-id sh -c 'xfce4-screenshooter -crs ~/Pictu
 # Current window
 bindsym $mod+Print exec --no-startup-id sh -c 'xfce4-screenshooter -cws ~/Pictures/$(date +%F-%T)-screenshot.png'
 
-bindsym $mod+l exec --no-startup-id sh -c "i3lock -c 000000"
+bindsym $mod+l exec --no-startup-id  betterlockscreen -l 000000
+bindsym $mod+$smod+l exec --no-startup-id i3-msg exit
 
+exec_always --no-startup-id ~/.config/polybar/launch.sh
+bindsym $mod+i exec --no-startup-id polybar-msg cmd toggle
 
-
+# Polkit authentication agent (REQUIRED for libvirt)
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 ## Workspaces ###
 # Define names for default workspaces for which we configure key bindings later on.
@@ -174,25 +182,25 @@ client.placeholder      $wm_color_border_inactive_bg $wm_color_border_inactive_b
 client.background       $wm_color_background
 
 ### i3bar ###
-bar {
-	position         $bar_setting_position
-	mode             $bar_setting_mode
-	font             $bar_setting_font
-	separator_symbol $bar_setting_separator
-	status_command   $bar_setting_statusCommand
-	tray_output      $bar_setting_trayoutput
-
-	colors {
-		background   $bar_color_background
-		statusline   $bar_color_statusline
-		separator    $bar_color_separator
-
-		focused_workspace  $bar_color_workspace_focused_bg  $bar_color_workspace_focused_bg  $bar_color_workspace_focused_fg
-		active_workspace   $bar_color_workspace_active_bg   $bar_color_workspace_active_bg   $bar_color_workspace_active_fg
-		inactive_workspace $bar_color_workspace_inactive_bg $bar_color_workspace_inactive_bg $bar_color_workspace_inactive_fg
-		urgent_workspace   $bar_color_workspace_urgent_bg   $bar_color_workspace_urgent_bg   $bar_color_workspace_urgent_fg
-	}
-}
+#bar {
+#	position         $bar_setting_position
+#	mode             $bar_setting_mode
+#	font             $bar_setting_font
+#	separator_symbol $bar_setting_separator
+#	status_command   $bar_setting_statusCommand
+#	tray_output      $bar_setting_trayoutput
+#
+#	colors {
+#		background   $bar_color_background
+#		statusline   $bar_color_statusline
+#		separator    $bar_color_separator
+#
+#		focused_workspace  $bar_color_workspace_focused_bg  $bar_color_workspace_focused_bg  $bar_color_workspace_focused_fg
+#		active_workspace   $bar_color_workspace_active_bg   $bar_color_workspace_active_bg   $bar_color_workspace_active_fg
+#		inactive_workspace $bar_color_workspace_inactive_bg $bar_color_workspace_inactive_bg $bar_color_workspace_inactive_fg
+#		urgent_workspace   $bar_color_workspace_urgent_bg   $bar_color_workspace_urgent_bg   $bar_color_workspace_urgent_fg
+#	}
+#}
 
 ### Miscellaneous settings ###
 # Set the font used for titlebars (which are hidden here)
@@ -217,10 +225,11 @@ bindsym $mod+$smod+r restart
 bindsym $mod+$smod+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 # Mod+sMod+b to change wallpaper
-bindsym $mod+Shift+b exec --no-startup-id ~/next-wallpaper.sh
+bindsym $mod+Shift+b exec --no-startup-id ~/systems/next-wallpaper.sh
 
-exec --no-startup-id ~/next-wallpaper.sh
+exec --no-startup-id ~/systems/next-wallpaper.sh
 
+bindsym $mod+$smod+n exec --no-startup-id ~/dashboard/launch_dashboard
 
 
 
