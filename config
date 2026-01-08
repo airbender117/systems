@@ -15,9 +15,10 @@ set $wm_setting_key_up               Up
 set $wm_setting_key_right            Right
 
 set $wm_setting_app_terminal         kitty
-set $wm_setting_app_browser          firefox
+set $wm_setting_app_browser          zen-browser
 set $wm_setting_app_launcher         dmenu_run
 set $wm_setting_app_compositor       picom
+set $wm_setting_file_manager		 thunar
 
 set $wm_color_border_active_bg       #81A1C1
 set $wm_color_border_active_fg       #3B4252
@@ -63,6 +64,7 @@ exec_always --no-startup-id $wm_setting_app_compositor --config ~/.config/picom/
 # Notifications
 # Start dunst notification daemon
 exec_always --no-startup-id dunst &
+bindsym $mod+e exec --no-startup-id thunar
 
 # Full screen
 bindsym Print exec --no-startup-id sh -c 'xfce4-screenshooter -fs ~/Pictures/$(date +%F-%T)-screenshot.png'
@@ -74,7 +76,7 @@ bindsym $smod+Print exec --no-startup-id sh -c 'xfce4-screenshooter -crs ~/Pictu
 bindsym $mod+Print exec --no-startup-id sh -c 'xfce4-screenshooter -cws ~/Pictures/$(date +%F-%T)-screenshot.png'
 
 bindsym $mod+l exec --no-startup-id  betterlockscreen -l 000000
-bindsym $mod+$smod+l exec --no-startup-id i3-msg exit
+bindsym $mod+$smod+. exec --no-startup-id i3-msg exit
 
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 bindsym $mod+i exec --no-startup-id polybar-msg cmd toggle
@@ -107,6 +109,16 @@ bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
+
+assign [class="kitty"] $ws1
+assign [class="zen"] $ws2
+assign [class="nvim"] $ws3
+assign [class="Thunar"] $ws4
+assign [class="Blueman-manager"] $ws5
+assign [class="mpv"] $ws9
+assign [class="Spotify"] $ws9
+
+
 
 # Move focused container to workspace n
 bindsym $mod+$smod+1 move container to workspace $ws1
@@ -228,8 +240,6 @@ bindsym $mod+$smod+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 bindsym $mod+Shift+b exec --no-startup-id ~/systems/next-wallpaper.sh
 
 exec --no-startup-id ~/systems/next-wallpaper.sh
-
-bindsym $mod+$smod+n exec --no-startup-id ~/dashboard/launch_dashboard
 
 
 
