@@ -4,7 +4,14 @@ vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function(use)
   -- Packer manages itself
   use 'wbthomason/packer.nvim'
+  use 'hrsh7th/nvim-cmp'
   use 'epwalsh/obsidian.nvim'
+use {
+  'nvim-tree/nvim-tree.lua',
+  requires = {
+    'nvim-tree/nvim-web-devicons', -- optional
+  },
+}
 
   -- Required dependency
   use 'nvim-lua/plenary.nvim'
